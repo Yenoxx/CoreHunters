@@ -1,0 +1,9 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Resources/UI/Styles/StyleDefault.uss?fileID=7433441132597879392&amp;guid=01c786eff3194d54083b2d47e62bd2c5&amp;type=3#StyleDefault" />
+    <ui:Button name="ButtonBuildingElement" focusable="false" class="button-building-element">
+        <ui:VisualElement picking-mode="Ignore" name="PanelIcon" class="panel-lighten" style="flex-grow: 1; border-top-left-radius: 4px; border-bottom-left-radius: 4px; border-top-right-radius: 4px; border-bottom-right-radius: 4px;">
+            <ui:VisualElement name="Icon" picking-mode="Ignore" style="flex-grow: 1; -unity-background-scale-mode: scale-to-fit;" />
+        </ui:VisualElement>
+        <ui:Label text="Label" display-tooltip-when-elided="true" picking-mode="Ignore" name="LabelName" class="label-normal" style="padding-right: 0; padding-left: 0; padding-top: 0; padding-bottom: 0;" />
+    </ui:Button>
+</ui:UXML>

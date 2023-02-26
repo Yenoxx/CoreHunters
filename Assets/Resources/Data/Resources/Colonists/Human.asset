@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 750d61d801a4a5848a44b7f7c1562625, type: 3}
+  m_Name: Human
+  m_EditorClassIdentifier: 
+  displayName: Human colonist
+  description: 
+  type: 2
+  icon: {fileID: 0}
+  producing: 1
+  production:
+    cycle: 8
+    requirements:
+      m_keys:
+      - {fileID: 11400000, guid: 5832c2dedf954bf45b37fc9ad4d24754, type: 2}
+      - {fileID: 11400000, guid: 114a957864b02a44e956d7b1279e09a5, type: 2}
+      - {fileID: 11400000, guid: add8bae3751beae4ab0cdf34eeb2bd86, type: 2}
+      - {fileID: 11400000, guid: 52bdd3d663f86464e854ddb33c1fa2eb, type: 2}
+      m_values: 01000000010000000100000001000000
+    products:
+      m_keys:
+      - {fileID: 11400000, guid: f5d58b8e6a9362f41b93bc9544338a09, type: 2}
+      m_values: 01000000

@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f4e984e9da54f946b63bc65393efbee, type: 3}
+  m_Name: EarthHangar
+  m_EditorClassIdentifier: 
+  displayName: Hangar
+  description: 'Can make all kinds of drones. But you''ll
+
+    have to research them
+    first.'
+  category: other
+  sprite: {fileID: 21300000, guid: 347faa5081e719f4190fc34eaa4bb6a3, type: 3}
+  spriteFlip: {fileID: 21300000, guid: afb14a96561876c488767f6fe41ddb5b, type: 3}
+  spriteOffset: {x: -1, y: 2.5}
+  cellSize: {x: 2, y: 3}
+  shadowScale: 2
+  shadowOffset: {x: 0, y: 0.66}
+  cost:
+    m_keys: []
+    m_values: 
+  productionVariants:
+  - cycle: 16
+    requirements:
+      m_keys: []
+      m_values: 
+    products:
+      m_keys: []
+      m_values: 
+    continious: 0
+    displayName: Basic drone
+    technology: {fileID: 0}
+  - cycle: 16
+    requirements:
+      m_keys: []
+      m_values: 
+    products:
+      m_keys: []
+      m_values: 
+    continious: 0
+    displayName: Miner drone
+    technology: {fileID: 11400000, guid: 0790ab8b784cff64ca19de3ed826aa1a, type: 2}
+  - cycle: 16
+    requirements:
+      m_keys: []
+      m_values: 
+    products:
+      m_keys: []
+      m_values: 
+    continious: 0
+    displayName: Builder drone
+    technology: {fileID: 11400000, guid: 9898dcbf81651a942bdfb2161251ea5d, type: 2}
+  - cycle: 16
+    requirements:
+      m_keys: []
+      m_values: 
+    products:
+      m_keys: []
+      m_values: 
+    continious: 0
+    displayName: Universal drone
+    technology: {fileID: 11400000, guid: bf3ec6b4341e6b54aabf908faeddf88d, type: 2}

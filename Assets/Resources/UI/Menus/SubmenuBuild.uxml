@@ -1,0 +1,31 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Resources/UI/Styles/StyleDefault.uss?fileID=7433441132597879392&amp;guid=01c786eff3194d54083b2d47e62bd2c5&amp;type=3#StyleDefault" />
+    <ui:VisualElement name="SubmenuBuild" class="wrapper-submenu panel-side" style="flex-shrink: 0;">
+        <ui:VisualElement name="Header" class="panel-header">
+            <ui:VisualElement name="WrapperTitle" style="flex-grow: 1; padding-left: 16px; padding-right: 8px; padding-top: 0; padding-bottom: 0;">
+                <ui:Label text="&gt;&gt; Build" display-tooltip-when-elided="true" name="LabelTitle" class="label-title" />
+            </ui:VisualElement>
+            <ui:Button display-tooltip-when-elided="true" name="ButtonClose" focusable="false" class="button-icon">
+                <ui:VisualElement picking-mode="Ignore" style="background-image: resource(&apos;Sprites/Icons/IconCross&apos;); flex-grow: 1;" />
+            </ui:Button>
+        </ui:VisualElement>
+        <ui:VisualElement name="Categories" picking-mode="Ignore" class="panel-dimmed-half" style="flex-direction: row; display: flex; margin-top: 16px; margin-bottom: 4px; margin-right: 4px; margin-left: 4px; padding-left: 4px; padding-right: 4px; padding-top: 4px; padding-bottom: 4px;">
+            <CategoryButton focusable="false" icon-string="CategoryColonists" name="ButtonCategoryColonists" category-name="colonists" />
+            <CategoryButton focusable="false" icon-string="CategoryProduction" name="ButtonCategoryProduction" category-name="production" />
+            <CategoryButton focusable="false" icon-string="CategoryOther" name="ButtonCategoryOther" category-name="other" />
+            <CategoryButton focusable="false" icon-string="CategoryDecoration" name="ButtonCategoryDecoration" category-name="decoration" />
+        </ui:VisualElement>
+        <ui:VisualElement name="Content" picking-mode="Ignore" class="panel-dimmed-half" style="flex-grow: 1; margin-top: 4px; margin-bottom: 16px; margin-left: 4px; margin-right: 4px;">
+            <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" style="flex-grow: 1;">
+                <ui:VisualElement name="ScrollContent" style="flex-grow: 0; flex-direction: row; padding-left: 16px; padding-right: 16px; padding-top: 16px; padding-bottom: 16px; flex-wrap: wrap;" />
+            </ui:ScrollView>
+        </ui:VisualElement>
+        <ui:VisualElement name="BottomDock" class="panel-header">
+            <IconButton focusable="false" name="ButtonClear" icon-string="Clear" />
+            <ui:VisualElement name="WrapperTextField" style="flex-grow: 1; padding-left: 8px; padding-right: 8px; padding-top: 8px; padding-bottom: 8px;">
+                <ui:TextField name="TextFieldSearch" class="text-field-normal" style="flex-grow: 1;" />
+            </ui:VisualElement>
+            <IconButton focusable="false" name="ButtonSearch" icon-string="Search" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

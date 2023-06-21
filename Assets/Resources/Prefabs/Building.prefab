@@ -95,6 +95,7 @@ SortingGroup:
   m_SortingLayerID: 1663721987
   m_SortingLayer: 3
   m_SortingOrder: 0
+  m_SortAtRoot: 0
 --- !u!1 &2805491047202935631
 GameObject:
   m_ObjectHideFlags: 0
@@ -149,7 +150,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 09b5cdb7f67785241b6223eb7857dee9, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -191,6 +192,25 @@ PolygonCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -234,6 +254,7 @@ PolygonCollider2D:
       - {x: 1.421875, y: -2.953125}
       - {x: 2, y: -2.671875}
       - {x: 3.421875, y: -1.859375}
+  m_UseDelaunayMesh: 0
 --- !u!114 &3248954326836088071
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -292,6 +313,25 @@ PolygonCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -311,6 +351,7 @@ PolygonCollider2D:
       - {x: 3.95, y: 0.9875}
       - {x: -1.975, y: 3.95}
       - {x: -5.925, y: 1.975}
+  m_UseDelaunayMesh: 0
 --- !u!114 &2968060286408616229
 MonoBehaviour:
   m_ObjectHideFlags: 0

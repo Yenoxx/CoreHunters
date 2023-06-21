@@ -8,23 +8,21 @@ public class SectorCamera : MonoBehaviour
     const int MOUSE_BUTTON = 0;
     const float SENSITIVITY_BASE = 0.1f;
 
-    public GameObject eventSystemObject;
     public float zoomScale;
     public float zoomDefault;
     public float zoomMin;
     public float zoomMax;
     public float zoomFocus;
 
+    private Vector3 positionTarget;
+    private float zoomTarget;
     private Vector3 dragOrigin;
     private float sensitivity;
+    private int prevFingerId;
     public bool drag { get; private set; }
     public bool dragSuspended { get; private set; }
     public bool dragCounted { get; private set; }
     public bool locked { get; set; }
-
-    private Action<ITween<Vector3>> motionUF;
-    private Action<ITween<float>> zoomUF;
-    private FloatTween zoomTween;
 
     public Action clicked;
 
@@ -47,63 +45,163 @@ public class SectorCamera : MonoBehaviour
         dragSuspended = false;
         dragCounted = false;
         sensitivity = SENSITIVITY_BASE;
+        prevFingerId = 0;
         locked = false;
-
-        motionUF = (t) => 
-        { 
-            transform.position = t.CurrentValue;
-        };
-        zoomUF = (t) => 
-        { 
-            cameraComponent.orthographicSize = t.CurrentValue;
-        };
 
         clicked = () => {};
 
         cameraComponent.orthographicSize = zoomDefault;
+
+        positionTarget = transform.position;
+        zoomTarget = zoomDefault;
     }
 
     void Update()
     {
+        // Smooth zooming :-)
+        float osDist = (zoomTarget - cameraComponent.orthographicSize) * Time.deltaTime * 10f;
+        if (osDist > 0 && cameraComponent.orthographicSize + osDist >= zoomTarget ||
+            osDist < 0 && cameraComponent.orthographicSize + osDist <= zoomTarget)
+        {
+            cameraComponent.orthographicSize = zoomTarget;
+        }
+        else
+        {
+            cameraComponent.orthographicSize += osDist;
+        }
+
+        // Smooth moving o_O
+        Vector3 position = transform.position;
+        Vector3 pDist = (positionTarget - position) * Time.deltaTime * 40f;
+        if (pDist.x > 0 && position.x + pDist.x >= positionTarget.x ||
+            pDist.x < 0 && position.x + pDist.x <= positionTarget.x)
+        {
+            position.x = positionTarget.x;
+        }
+        else
+        {
+            position.x += pDist.x;
+        }
+        if (pDist.y > 0 && position.y + pDist.y >= positionTarget.y ||
+            pDist.y < 0 && position.y + pDist.y <= positionTarget.y)
+        {
+            position.y = positionTarget.y;
+        }
+        else
+        {
+            position.y += pDist.y;
+        }
+        transform.position = position;
+
+        // If is controllable
         if (ProviderUmpaLumpa.eventSystem != null && !locked)
         {
-            if (!ProviderUmpaLumpa.eventSystem.IsPointerOverGameObject())
+            // Touch controls
+            if (SystemInfo.deviceType == DeviceType.Handheld)
             {
-                if (Input.GetMouseButtonDown(MOUSE_BUTTON))
+                if (Input.touchCount >= 1)
                 {
-                    dragOrigin = GetMouseWorldPosition();
-                    drag = true;
-                    dragCounted = false;
-                    clicked.Invoke();
-                }
-                
-                if (Input.GetMouseButton(MOUSE_BUTTON) && drag)
-                {
-                    if (dragSuspended)
-                    {
-                        dragOrigin = GetMouseWorldPosition();
-                        dragSuspended = false;
-                    }
-                    Vector3 difference = dragOrigin - GetMouseWorldPosition();
-                    if (difference.magnitude >= sensitivity) dragCounted = true;
-                    Move(cameraComponent.transform.position + new Vector3(difference.x, difference.y, 0), 0);
-                }
+                    Touch touchA = Input.GetTouch(0);
 
-                float zoomAxis = Input.GetAxis("Mouse ScrollWheel");
-                if (zoomAxis != 0) 
-                {
-                    Zoom(cameraComponent.orthographicSize - zoomAxis * zoomScale);
-                    clicked.Invoke();
+                    // If touch isn't over UI
+                    if (!ProviderUmpaLumpa.eventSystem.IsPointerOverGameObject(touchA.fingerId))
+                    {
+                        // Touch motion
+                        if (touchA.phase == TouchPhase.Began || prevFingerId != touchA.fingerId)
+                        {
+                            prevFingerId = touchA.fingerId;
+                            dragOrigin = GetTouchWorldPosition(touchA);
+                            drag = true;
+                            dragCounted = false;
+                            clicked.Invoke();
+                        }
+
+                        if (touchA.phase == TouchPhase.Moved)
+                        {
+                            if (dragSuspended)
+                            {
+                                dragOrigin = GetTouchWorldPosition(touchA);
+                                dragSuspended = false;
+                            }
+                            Vector3 difference = dragOrigin - GetTouchWorldPosition(touchA);
+                            if (difference.magnitude >= sensitivity) dragCounted = true;
+                            Move(transform.position + new Vector3(difference.x, difference.y, 0));
+                        }
+                        
+                        // Touch zooming
+                        if (Input.touchCount >= 2)
+                        {
+                            Touch touchB = Input.GetTouch(1);
+
+                            if (!ProviderUmpaLumpa.eventSystem.IsPointerOverGameObject(touchB.fingerId))
+                            {
+                                Vector2 prevPositionA = touchA.position - touchA.deltaPosition;
+                                Vector2 prevPositionB = touchB.position - touchB.deltaPosition;
+
+                                float currMagnitude = (touchA.position - touchB.position).magnitude;
+                                float prevMagnitude = (prevPositionA - prevPositionB).magnitude;
+
+                                float difference = currMagnitude - prevMagnitude;
+                                Zoom(zoomTarget - difference / Mathf.Min(Screen.height, Screen.width) * zoomScale);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        dragSuspended = true;
+                    }
+
+                    if (touchA.phase == TouchPhase.Canceled)
+                    {
+                        drag = false;
+                    }
                 }
             }
+
+            // Mouse controls
             else
             {
-                dragSuspended = true;
-            }
+                // If mouse isn't over UI
+                if (!ProviderUmpaLumpa.eventSystem.IsPointerOverGameObject())
+                {
+                    // Motion
+                    if (Input.GetMouseButtonDown(MOUSE_BUTTON))
+                    {
+                        dragOrigin = GetMouseWorldPosition();
+                        drag = true;
+                        dragCounted = false;
+                        clicked.Invoke();
+                    }
+                    
+                    if (Input.GetMouseButton(MOUSE_BUTTON) && drag)
+                    {
+                        if (dragSuspended)
+                        {
+                            dragOrigin = GetMouseWorldPosition();
+                            dragSuspended = false;
+                        }
+                        Vector3 difference = dragOrigin - GetMouseWorldPosition();
+                        if (difference.magnitude >= sensitivity) dragCounted = true;
+                        Move(transform.position + new Vector3(difference.x, difference.y, 0));
+                    }
 
-            if (Input.GetMouseButtonUp(MOUSE_BUTTON))
-            {
-                drag = false;
+                    // Zooming
+                    float zoomAxis = Input.GetAxis("Mouse ScrollWheel");
+                    if (zoomAxis != 0) 
+                    {
+                        Zoom(zoomTarget - zoomAxis * zoomScale);
+                        clicked.Invoke();
+                    }
+                }
+                else
+                {
+                    dragSuspended = true;
+                }
+
+                if (Input.GetMouseButtonUp(MOUSE_BUTTON))
+                {
+                    drag = false;
+                }
             }
         }
     }
@@ -113,43 +211,30 @@ public class SectorCamera : MonoBehaviour
         return cameraComponent.ScreenToWorldPoint(Input.mousePosition);
     }
 
-    private void Move(Vector2 position, float time)
+    public Vector3 GetTouchWorldPosition(Touch touch)
     {
-        Vector3 position3 = new Vector3(position.x, position.y, transform.position.z);
-        gameObject.Tween(
-            gameObject + "_motion", 
-            transform.position, 
-            position3, 
-            time, TweenScaleFunctions.QuadraticEaseInOut, motionUF);
-    }
-    private void Move(Vector2 position)
-    {
-        Move(position, 0.1f);
+        return cameraComponent.ScreenToWorldPoint(touch.position);
     }
 
-    private void Zoom(float size, float time)
+    private void Move(Vector2 position)
     {
-        float clampedSize = Mathf.Clamp(size, zoomMin, zoomMax);
-        if (zoomTween != null && zoomTween.State == TweenState.Running)
-        {
-            clampedSize = Mathf.Clamp(size + zoomTween.EndValue - zoomTween.CurrentValue, zoomMin, zoomMax);
-        }
-        zoomTween = gameObject.Tween(
-            gameObject + "_zooming", 
-            cameraComponent.orthographicSize, 
-            clampedSize, 
-            time, TweenScaleFunctions.QuadraticEaseInOut, zoomUF);
+        Vector3 position3 = new Vector3(position.x, position.y, transform.position.z);
+        positionTarget = position3;
     }
+
     private void Zoom(float size)
     {
-        Zoom(size, 0.1f);
+        float clampedSize = Mathf.Clamp(size, zoomMin, zoomMax);
+        zoomTarget = clampedSize;
     }
 
     public void FocusOn(Vector2 position, Vector2 screenOffset)
     {
-        Vector2 offset = screenOffset * new Vector2(Screen.width, Screen.height) * Constants.UNITS_TO_PIXELS;
-        Move(position + offset, 0.25f);
-        Zoom(zoomFocus, 0.25f);
+        float nextZoom = zoomFocus;
+        Vector2 camDif = cameraComponent.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height)) - cameraComponent.ScreenToWorldPoint(new Vector3(0, 0, 0));
+        Vector2 offset = screenOffset * camDif * nextZoom / cameraComponent.orthographicSize;
+        Move(position + offset);
+        Zoom(nextZoom);
     }
     public void FocusOn(Vector2 position)
     {
@@ -163,8 +248,8 @@ public class SectorCamera : MonoBehaviour
 
     public void LoadSnapshot(Snapshot snapshot)
     {
-        Move(snapshot.position, 0.25f);
-        Zoom(snapshot.size, 0.25f);
+        Move(snapshot.position);
+        Zoom(snapshot.size);
     }
     public void LoadSnapshot()
     {

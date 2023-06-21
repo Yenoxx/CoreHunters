@@ -53,6 +53,10 @@ public class SectorManager : MonoBehaviour
     {
         ProviderUmpaLumpa.sectorManager = this;
 
+        // TODO: move to an appropriate place
+        QualitySettings.vSyncCount = 0;
+        Application.targetFrameRate = 200;
+
         GameObject eventSystemGameObject = GameObject.Find("EventSystem");
         ProviderUmpaLumpa.eventSystem = eventSystemGameObject.GetComponent<EventSystem>();
     }

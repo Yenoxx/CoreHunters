@@ -6,7 +6,7 @@ SpriteAtlas:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: AtlasBuildingsEarth
+  m_Name: AtlasTerrainMars
   m_EditorData:
     serializedVersion: 2
     textureSettings:
@@ -16,7 +16,7 @@ SpriteAtlas:
       maxTextureSize: 2048
       textureCompression: 0
       filterMode: 1
-      generateMipMaps: 1
+      generateMipMaps: 0
       readable: 0
       crunchedCompression: 0
       sRGB: 0
@@ -26,7 +26,7 @@ SpriteAtlas:
       m_MaxTextureSize: 4096
       m_ResizeAlgorithm: 0
       m_TextureFormat: -1
-      m_TextureCompression: 0
+      m_TextureCompression: 2
       m_CompressionQuality: 50
       m_CrunchedCompression: 0
       m_AllowsAlphaSplitting: 0
@@ -45,38 +45,26 @@ SpriteAtlas:
     secondaryTextureSettings: {}
     variantMultiplier: 1
     packables:
-    - {fileID: 102900000, guid: fdc28d5a3b86b144da63887480d6b9c2, type: 3}
+    - {fileID: 102900000, guid: f3fd0823aff46ff478536dee77101df9, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
     packedSpriteRenderDataKeys:
-    - 347faa5081e719f4190fc34eaa4bb6a3: 21300000
-    - cb6a12a0d209cc143a04daf524e2fc56: 21300000
-    - 557eb84667082974eb03934e422c5421: 21300000
-    - afb14a96561876c488767f6fe41ddb5b: 21300000
-    - 08f6f7b602d4f6b468a9453b9a31be2d: 21300000
-    - 63656ffa83b36794f8738a4f5095c544: 21300000
-    - 41ff8bdbdd70dda47ae22e51c2bc24b9: 21300000
-    - 753c6d2ef596f95448a225222ec58dc4: 21300000
+    - cf4963f15485b6e429d281743c124a8f: 21300000
+    - f120b0b2dac671c4683d3fc4a37c99ad: 21300000
+    - 6958cda6721ea2a40a5ffc43204181e0: 21300000
+    - 24f2e2393d2f0544cb6ed64651bb832e: 21300000
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
-  - {fileID: 21300000, guid: 347faa5081e719f4190fc34eaa4bb6a3, type: 3}
-  - {fileID: 21300000, guid: cb6a12a0d209cc143a04daf524e2fc56, type: 3}
-  - {fileID: 21300000, guid: 557eb84667082974eb03934e422c5421, type: 3}
-  - {fileID: 21300000, guid: afb14a96561876c488767f6fe41ddb5b, type: 3}
-  - {fileID: 21300000, guid: 08f6f7b602d4f6b468a9453b9a31be2d, type: 3}
-  - {fileID: 21300000, guid: 63656ffa83b36794f8738a4f5095c544, type: 3}
-  - {fileID: 21300000, guid: 41ff8bdbdd70dda47ae22e51c2bc24b9, type: 3}
-  - {fileID: 21300000, guid: 753c6d2ef596f95448a225222ec58dc4, type: 3}
+  - {fileID: 21300000, guid: cf4963f15485b6e429d281743c124a8f, type: 3}
+  - {fileID: 21300000, guid: f120b0b2dac671c4683d3fc4a37c99ad, type: 3}
+  - {fileID: 21300000, guid: 6958cda6721ea2a40a5ffc43204181e0, type: 3}
+  - {fileID: 21300000, guid: 24f2e2393d2f0544cb6ed64651bb832e, type: 3}
   m_PackedSpriteNamesToIndex:
-  - EarthHangar
-  - EarthSolarPanel
-  - EarthSolarPanelFlip
-  - EarthHangarFlip
-  - EarthFarmSmall
-  - EarthFarmSmallFlip
-  - EarthPodFlip
-  - EarthPod
+  - Mars_3
+  - Mars_0
+  - Mars_2
+  - Mars_1
   m_RenderDataMap: {}
-  m_Tag: AtlasBuildingsEarth
+  m_Tag: AtlasTerrainMars
   m_IsVariant: 0

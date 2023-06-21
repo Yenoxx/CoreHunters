@@ -81,7 +81,7 @@ public class SectorMenu : MonoBehaviour
 
             Vector2 position = new Vector2(building.transform.position.x, building.transform.position.y);
             ProviderUmpaLumpa.sectorCamera.CreateSnapshot();
-            ProviderUmpaLumpa.sectorCamera.FocusOn(position + building.centerOffset, new Vector2(0, -0.3f));
+            ProviderUmpaLumpa.sectorCamera.FocusOn(position + building.centerOffset, new Vector2(0, -0.2f));
 
             flexSwitcherScreen.Switch(submenuBuildingSection.wrapper);
         }

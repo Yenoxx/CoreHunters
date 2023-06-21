@@ -31,6 +31,7 @@ SpriteAtlas:
       m_CrunchedCompression: 0
       m_AllowsAlphaSplitting: 0
       m_Overridden: 0
+      m_IgnorePlatformSupport: 0
       m_AndroidETC2FallbackOverride: 0
       m_ForceMaximumCompressionQuality_BC6H_BC7: 0
     packingSettings:
@@ -48,6 +49,38 @@ SpriteAtlas:
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
+    packedSpriteRenderDataKeys:
+    - cacd8430ffe383748aa409144f64e9fd: 21300000
+    - ec314680ac585a84b87a4b5db743c502: 21300000
+    - ff555bc145bb73e4f8d8ebcf4b03d737: 21300000
+    - 07bc53a28efe6b34d81ba18fda1838c8: 21300000
+    - 26985eb270c191749a6583930d971746: 21300000
+    - beedd513b38e1b1429e70054f3c37c71: 21300000
+    - 09318663953c3d445a6cc17289fdf6b2: 21300000
+    - 82fb54c3742b1bd4796808ebc2e492aa: 21300000
+    - aba1791417baf614aaa5663a557e89e4: 21300000
+    - f983cb24baf9fca46a3a3f3fe275a854: 21300000
+    - 62eb3294aaae0ca4cb1abb5b5417dfba: 21300000
+    - 9ff580b486fb68d4f8ba7fe8ff65d9df: 21300000
+    - 449a0906a498ae1409a4d551a1450fb0: 21300000
+    - 2281a9c6e4b9f5247a4f9d92d6bdf925: 21300000
+    - 998ba0772eca01745ab2905ec43b9566: 21300000
+    - c4229877d5c9af54e82dff6b66f6911b: 21300000
+    - 31f55f972e29a7d4ea0fc023af984305: 21300000
+    - 4e6deba7e6196054d9a0799069a9da84: 21300000
+    - 6e4753490491c7d439f5ddf4f1d3a14a: 21300000
+    - 007b46c9fb4b01749a0fb686657d11ee: 21300000
+    - a3c8974a79de2524e867bced24ca9735: 21300000
+    - 02bfb3aaab899af4a9ecda57194f2c99: 21300000
+    - 2ba46ffa556c95f498f1e4fbaefcd09d: 21300000
+    - e4e5fc9bb13394c469344f19b8191e96: 21300000
+    - 2f6d35cdee4beb64598ff5103c180a2e: 21300000
+    - 7bf99bcd722cda445887709df7850fef: 21300000
+    - ffe60ede5d177e843b58f95408c34c39: 21300000
+    - 511a862fd957fa04cbb17f756ed8ba69: 21300000
+    - 3e08929fd3bffd646bfb1a951a5fd8dc: 21300000
+    - 6160e3bfb1fade749b49ced8d60f67f4: 21300000
+    - 66d9b3df114fc17448acf500c8cf35a0: 21300000
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: cacd8430ffe383748aa409144f64e9fd, type: 3}

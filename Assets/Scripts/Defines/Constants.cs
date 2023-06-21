@@ -2,7 +2,8 @@
 
 public static class Constants
 {
-    public const float UNITS_TO_PIXELS = 1f / 64f;
+    public const float PIXELS_TO_UNITS = 1f / 64f;
+    public const float UNITS_TO_PIXELS = 64f;
 
     public const float CELL_SIZE_X = 3.95f;
     public const float CELL_SIZE_Y = 1.975f;

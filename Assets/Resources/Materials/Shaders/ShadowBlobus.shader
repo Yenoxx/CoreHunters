@@ -11,7 +11,16 @@ Shader "Custom/ShadowBlobus"
 
     SubShader
     {
-        Tags {"Queue"="Transparent" "RenderType"="Transparent"}
+        Tags {
+            "Queue"="Transparent" 
+            "RenderType"="Transparent"
+			"IgnoreProjector"="True" 
+			"PreviewType"="Plane"
+			"CanUseSpriteAtlas"="True"
+        }
+        
+        Cull Off
+		Lighting Off
         ZWrite Off
         Blend SrcAlpha OneMinusSrcAlpha
 

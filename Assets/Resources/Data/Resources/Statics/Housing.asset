@@ -12,17 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 750d61d801a4a5848a44b7f7c1562625, type: 3}
   m_Name: Housing
   m_EditorClassIdentifier: 
-  id: 60be130a-fed1-4824-b37e-5adfe3bf7445
-  type: 0
   displayName: Housing
+  shortName: Housing
+  description: 
+  type: 0
+  icon: {fileID: 21300000, guid: 2336207714744624c90b9aab7d304152, type: 3}
   producing: 0
   production:
     cycle: 0
-    requirements:
+    cost:
       m_keys: []
       m_values: 
-      id: 8d7fe95b-69a8-4a69-ad5c-2a6861f610ee
     products:
       m_keys: []
       m_values: 
-      id: 14fdf72e-fa9c-47bb-8d0d-89356875e8fa

@@ -12,18 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 750d61d801a4a5848a44b7f7c1562625, type: 3}
   m_Name: Power
   m_EditorClassIdentifier: 
-  id: 19bd7c13-25db-4ddf-a424-c6f65c53bc21
-  type: 0
   displayName: Power
-  icon: {fileID: 0}
+  shortName: Power
+  description: 
+  type: 0
+  icon: {fileID: 21300000, guid: 4ce4bc693d1f92f43a1ed130c4e348d2, type: 3}
   producing: 0
   production:
     cycle: 0
-    requirements:
+    cost:
       m_keys: []
       m_values: 
-      id: f7ae7a13-1a80-46e4-a61f-7ff0b70b70d5
     products:
       m_keys: []
       m_values: 
-      id: 0536f6ed-c3e5-4523-b295-5b975c6e935f

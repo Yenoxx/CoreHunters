@@ -8,7 +8,7 @@
                 <IconButton focusable="false" name="ButtonMove" icon-string="Move" />
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="BottomArea" class="panel-side" style="flex-grow: 1;">
+        <ui:VisualElement name="BottomArea" class="panel-side" style="flex-grow: 0; height: 50%;">
             <ui:VisualElement name="Header" class="panel-header">
                 <ui:VisualElement name="WrapperName" style="flex-grow: 1; padding-left: 16px; padding-right: 8px; padding-top: 0; padding-bottom: 0;">
                     <ui:Label text="Name" display-tooltip-when-elided="true" name="LabelName" class="label-title" />
@@ -16,11 +16,23 @@
             </ui:VisualElement>
             <ui:VisualElement name="Categories" picking-mode="Ignore" class="panel-dimmed-half" style="flex-direction: row; display: flex; margin-top: 16px; margin-bottom: 4px; margin-right: 4px; margin-left: 4px; padding-left: 4px; padding-right: 4px; padding-top: 4px; padding-bottom: 4px;">
                 <CategoryButton focusable="false" icon-string="Production" name="ButtonCategoryProduction" category-name="production" />
-                <CategoryButton focusable="false" icon-string="Info" name="ButtonCategoryInfo" category-name="colonists" />
+                <CategoryButton focusable="false" icon-string="Info" name="ButtonCategoryInfo" category-name="info" />
             </ui:VisualElement>
             <ui:VisualElement name="Content" picking-mode="Ignore" class="panel-dimmed-half" style="flex-grow: 1; margin-top: 4px; margin-bottom: 4px; margin-left: 4px; margin-right: 4px;">
-                <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" style="flex-grow: 1;">
-                    <ui:VisualElement name="ScrollContent" style="flex-grow: 0; flex-direction: row; padding-left: 16px; padding-right: 16px; padding-top: 16px; padding-bottom: 16px; flex-wrap: wrap;" />
+                <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" mouse-wheel-scroll-size="256" style="flex-grow: 0;">
+                    <ui:VisualElement name="ScrollContent" style="flex-grow: 1; flex-direction: column; padding-left: 16px; padding-right: 16px; padding-top: 16px; padding-bottom: 16px; flex-wrap: nowrap; flex-shrink: 0;">
+                        <ui:VisualElement name="ViewProduction" style="flex-grow: 1; margin-bottom: 16px; flex-shrink: 0;">
+                            <ui:Label tabindex="-1" text="Production" display-tooltip-when-elided="true" name="LabelProduction" class="label-title" />
+                            <ui:DropdownField label="Technology" index="-1" choices="System.Collections.Generic.List`1[System.String]" name="DropdownTechnology" focusable="false" style="margin-bottom: 12px;" />
+                            <ui:VisualElement name="ProductionContent" style="flex-grow: 1; flex-shrink: 0; flex-direction: row;" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="ViewInfo" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-shrink: 0;">
+                            <ui:Label tabindex="-1" text="Info" display-tooltip-when-elided="true" name="LabelInfo" class="label-title" />
+                            <ui:VisualElement name="InfoContent" class="panel-dimmed-half" style="flex-shrink: 0; flex-grow: 1; border-top-left-radius: 2px; border-bottom-left-radius: 2px; border-top-right-radius: 2px; border-bottom-right-radius: 2px;">
+                                <ui:Label tabindex="-1" text="Some text" display-tooltip-when-elided="true" name="LabelInfoText" class="label-normal" style="-unity-text-align: middle-left; font-size: 24px; white-space: normal; padding-left: 16px; padding-top: 16px; padding-right: 16px; padding-bottom: 16px;" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
                 </ui:ScrollView>
             </ui:VisualElement>
         </ui:VisualElement>

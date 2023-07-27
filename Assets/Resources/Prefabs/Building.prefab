@@ -373,3 +373,14 @@ MonoBehaviour:
   flip: 0
   sampleShadowMaterial: {fileID: 2100000, guid: 383c5754315192f42bc3f9c0797444c4, type: 2}
   sampleSpriteMaterial: {fileID: 2100000, guid: 09b5cdb7f67785241b6223eb7857dee9, type: 2}
+  currentProductionVariant:
+    cycle: 0
+    cost:
+      m_keys: []
+      m_values: 
+    products:
+      m_keys: []
+      m_values: 
+    continious: 1
+    displayName: 
+    technology: {fileID: 0}

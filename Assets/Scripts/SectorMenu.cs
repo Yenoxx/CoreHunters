@@ -22,6 +22,8 @@ public class SectorMenu : MonoBehaviour
     private SubmenuBuildSection submenuBuildSection;
     private SubmenuBuildingSection submenuBuildingSection;
 
+    private SectorCamera.Snapshot cameraSnapshotSubmenuBuilding;
+
     void Awake()
     {
         ProviderUmpaLumpa.sectorMenu = this;
@@ -80,7 +82,7 @@ public class SectorMenu : MonoBehaviour
             submenuBuildingSection.OnShow();
 
             Vector2 position = new Vector2(building.transform.position.x, building.transform.position.y);
-            ProviderUmpaLumpa.sectorCamera.CreateSnapshot();
+            cameraSnapshotSubmenuBuilding = ProviderUmpaLumpa.sectorCamera.CreateSnapshot();
             ProviderUmpaLumpa.sectorCamera.FocusOn(position + building.centerOffset, new Vector2(0, -0.2f));
 
             flexSwitcherScreen.Switch(submenuBuildingSection.wrapper);
@@ -93,7 +95,7 @@ public class SectorMenu : MonoBehaviour
         {
             submenuBuildingSection.OnHide();
 
-            ProviderUmpaLumpa.sectorCamera.LoadSnapshot();
+            ProviderUmpaLumpa.sectorCamera.LoadSnapshotZoom(cameraSnapshotSubmenuBuilding);
             
             flexSwitcherScreen.Return();
         }

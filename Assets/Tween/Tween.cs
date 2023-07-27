@@ -75,15 +75,6 @@ namespace DigitalRuby.Tween
             if (root == null && Application.isPlaying)
             {
                 root = GameObject.Find("DigitalRubyTween");
-                if (root == null || root.GetComponent<TweenFactory>() == null)
-                {
-                    if (root != null)
-                    {
-                        toDestroy = root;
-                    }
-                    root = new GameObject { name = "DigitalRubyTween", hideFlags = HideFlags.HideAndDontSave };
-                    root.AddComponent<TweenFactory>().hideFlags = HideFlags.HideAndDontSave;
-                }
                 if (Application.isPlaying)
                 {
                     GameObject.DontDestroyOnLoad(root);

@@ -18,7 +18,7 @@ public class SectorCamera : MonoBehaviour
     private float zoomTarget;
     private Vector3 dragOrigin;
     private float sensitivity;
-    private int prevFingerId;
+    private int lastTouchCount;
     public bool drag { get; private set; }
     public bool dragSuspended { get; private set; }
     public bool dragCounted { get; private set; }
@@ -45,7 +45,7 @@ public class SectorCamera : MonoBehaviour
         dragSuspended = false;
         dragCounted = false;
         sensitivity = SENSITIVITY_BASE;
-        prevFingerId = 0;
+        lastTouchCount = 0;
         locked = false;
 
         clicked = () => {};
@@ -107,10 +107,9 @@ public class SectorCamera : MonoBehaviour
                     if (!ProviderUmpaLumpa.eventSystem.IsPointerOverGameObject(touchA.fingerId))
                     {
                         // Touch motion
-                        if (touchA.phase == TouchPhase.Began || prevFingerId != touchA.fingerId)
+                        if (touchA.phase == TouchPhase.Began || lastTouchCount != Input.touchCount)
                         {
-                            prevFingerId = touchA.fingerId;
-                            dragOrigin = GetTouchWorldPosition(touchA);
+                            dragOrigin = GetAverageTouchWorldPosition();
                             drag = true;
                             dragCounted = false;
                             clicked.Invoke();
@@ -120,10 +119,10 @@ public class SectorCamera : MonoBehaviour
                         {
                             if (dragSuspended)
                             {
-                                dragOrigin = GetTouchWorldPosition(touchA);
+                                dragOrigin = GetAverageTouchWorldPosition();
                                 dragSuspended = false;
                             }
-                            Vector3 difference = dragOrigin - GetTouchWorldPosition(touchA);
+                            Vector3 difference = dragOrigin - GetAverageTouchWorldPosition();
                             if (difference.magnitude >= sensitivity) dragCounted = true;
                             Move(transform.position + new Vector3(difference.x, difference.y, 0));
                         }
@@ -145,6 +144,8 @@ public class SectorCamera : MonoBehaviour
                                 Zoom(zoomTarget - difference / Mathf.Min(Screen.height, Screen.width) * zoomScale);
                             }
                         }
+
+                        lastTouchCount = Input.touchCount;
                     }
                     else
                     {
@@ -216,6 +217,17 @@ public class SectorCamera : MonoBehaviour
         return cameraComponent.ScreenToWorldPoint(touch.position);
     }
 
+    public Vector3 GetAverageTouchWorldPosition()
+    {
+        Vector2 averagePosition = Vector2.zero;
+        for (int i = 0; i < Input.touchCount; i++)
+        {
+            averagePosition += Input.GetTouch(i).position;
+        }
+        averagePosition /= (float)Input.touchCount;
+        return cameraComponent.ScreenToWorldPoint(averagePosition);
+    }
+
     private void Move(Vector2 position)
     {
         Vector3 position3 = new Vector3(position.x, position.y, transform.position.z);
@@ -241,31 +253,75 @@ public class SectorCamera : MonoBehaviour
         FocusOn(position, Vector2.zero);
     }
 
-    public void CreateSnapshot()
+    // Snapshot creation
+    public Snapshot CreateSnapshot()
     {
-        lastSnapshot = new Snapshot(this);
+        return new Snapshot(this);
+    }
+    public void SaveSnapshot()
+    {
+        lastSnapshot = CreateSnapshot();
     }
 
+    // Snapshot smooth loading
     public void LoadSnapshot(Snapshot snapshot)
     {
         Move(snapshot.position);
         Zoom(snapshot.size);
     }
-    public void LoadSnapshot()
+    public void LoadSnapshotPosition(Snapshot snapshot)
     {
-        LoadSnapshot(lastSnapshot);
+        Move(snapshot.position);
     }
-
+    public void LoadSnapshotZoom(Snapshot snapshot)
+    {
+        Zoom(snapshot.size);
+    }
+    
+    // Snapshot instant loading
     public void LoadSnapshotInstantly(Snapshot snapshot)
     {
         transform.position = snapshot.position;
         cameraComponent.orthographicSize = snapshot.size;
     }
+    public void LoadSnapshotPositionInstantly(Snapshot snapshot)
+    {
+        transform.position = snapshot.position;
+    }
+    public void LoadSnapshotZoomInstantly(Snapshot snapshot)
+    {
+        cameraComponent.orthographicSize = snapshot.size;
+    }
+
+    // Last snapshot smooth loading
+    public void LoadSnapshot()
+    {
+        LoadSnapshot(lastSnapshot);
+    }
+    public void LoadSnapshotPosition()
+    {
+        LoadSnapshotPosition(lastSnapshot);
+    }
+    public void LoadSnapshotZoom()
+    {
+        LoadSnapshotZoom(lastSnapshot);
+    }
+
+    // Last snapshot instant loading
     public void LoadSnapshotInstantly()
     {
         LoadSnapshotInstantly(lastSnapshot);
     }
+    public void LoadSnapshotPositionInstantly()
+    {
+        LoadSnapshotPositionInstantly(lastSnapshot);
+    }
+    public void LoadSnapshotZoomInstantly()
+    {
+        LoadSnapshotZoomInstantly(lastSnapshot);
+    }
 
+    // Snapshot class
     public class Snapshot
     {
         public Vector3 position { get; private set; }

@@ -12,17 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 750d61d801a4a5848a44b7f7c1562625, type: 3}
   m_Name: Soil
   m_EditorClassIdentifier: 
-  id: 79c77d96-1f88-488e-8521-e9976cbbbdc3
-  type: 0
   displayName: Soil
+  shortName: Soil
+  description: 
+  type: 0
+  icon: {fileID: 0}
   producing: 0
   production:
     cycle: 0
     requirements:
       m_keys: []
       m_values: 
-      id: e0eca844-a834-40ee-95c0-0e76af8b8b41
     products:
       m_keys: []
       m_values: 
-      id: 8f050c5b-0ab0-41b7-896c-042b04470761

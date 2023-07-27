@@ -12,14 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 750d61d801a4a5848a44b7f7c1562625, type: 3}
   m_Name: Food
   m_EditorClassIdentifier: 
-  ID: f919863c-7322-4528-83a9-4f461285c6a5
-  type: 0
   displayName: Food
+  shortName: Food
+  description: 
+  type: 0
+  icon: {fileID: 21300000, guid: ffe955bfdcd7626498aa2ad9ad8b36fd, type: 3}
   producing: 0
   production:
     cycle: 0
+    requirements:
+      m_keys: []
+      m_values: 
     products:
-      normalStorage:
-        m_Keys: []
-      staticStorage:
-        m_Keys: []
+      m_keys: []
+      m_values: 

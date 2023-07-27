@@ -2,7 +2,9 @@ Shader "Custom/Building"
 {
     Properties
     {
-        _MixWhite ("Ellipse b", Float) = 1.0
+        [PerRendererData] _MainTex ("Sprite Texture", 2D) = "white" {}
+		_Color ("Tint", Color) = (1,1,1,1)
+        _MixWhite ("Mix white", Float) = 1.0
     }
 
     SubShader
@@ -27,7 +29,6 @@ Shader "Custom/Building"
             CGPROGRAM
             #pragma vertex vert
 			#pragma fragment frag
-			#pragma multi_compile _ PIXELSNAP_ON
 			#include "UnityCG.cginc"
 			
 			struct appdata_t
@@ -52,16 +53,13 @@ Shader "Custom/Building"
 				OUT.vertex = UnityObjectToClipPos(IN.vertex);
 				OUT.texcoord = IN.texcoord;
 				OUT.color = IN.color * _Color;
-				#ifdef PIXELSNAP_ON
-				OUT.vertex = UnityPixelSnap(OUT.vertex);
-				#endif
 
 				return OUT;
 			}
 
 			sampler2D _MainTex;
-			sampler2D _AlphaTex;
 			float _AlphaSplitEnabled;
+            float _MixWhite;
 
 			fixed4 SampleSpriteTexture (float2 uv)
 			{
@@ -78,7 +76,7 @@ Shader "Custom/Building"
 			fixed4 frag(v2f IN) : SV_Target
 			{
 				fixed4 c = SampleSpriteTexture(IN.texcoord) * IN.color;
-				c.rgb *= c.a;
+                c.rgb = lerp(c.rgb, fixed3(1., 1., 1.), _MixWhite);
 				return c;
 			}
             ENDCG

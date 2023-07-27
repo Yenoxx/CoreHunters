@@ -51,6 +51,9 @@ public class Building : MonoBehaviour
     private Mesh shadowMesh;
     private Material shadowMaterial;
 
+    // Gameplay mechanics
+    public ProductionVariant currentProductionVariant;
+
     // Press state and mechanics
     public bool pressed { get; set; }
     public bool justPressed { get; set; }
@@ -189,7 +192,7 @@ public class Building : MonoBehaviour
             };
             blinkUF = (t) =>
             {
-                spriteMaterial.SetFloat("_Blink", t.CurrentValue);
+                spriteMaterial.SetFloat("_MixWhite", t.CurrentValue);
             };
 
             UpdateSpriteGeometry();
@@ -323,6 +326,10 @@ public class Building : MonoBehaviour
             case BehaviorMode.READY:
             {
                 spriteRenderer.color = colorNormal;
+                if (buildingData.productionVariants.Length > 0)
+                {
+                    currentProductionVariant = buildingData.productionVariants[0];
+                }
                 if (Application.IsPlaying(gameObject)) 
                 {
                     ProviderUmpaLumpa.sectorWorldUI.HideContextButtons();

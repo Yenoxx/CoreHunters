@@ -46,13 +46,13 @@ public class Save
         {
             if (!unlockedResearch.Contains(item)) return false;
         }
-        if (!storage.RequirementsMet(researchEntry.cost)) return false;
+        if (!storage.CostIsAffordable(researchEntry.cost)) return false;
         return true;
     }
 
     public void PayForResearch(ResearchEntry researchEntry)
     {
-        storage.RemoveStorage(researchEntry.cost);
+        storage.AddStorage(researchEntry.cost);
     }
 
     public void UnlockResearchEntry(ResearchTreeData researchTreeData, ResearchEntry researchEntry)

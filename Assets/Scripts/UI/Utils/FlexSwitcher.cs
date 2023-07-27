@@ -36,4 +36,12 @@ public class FlexSwitcher
     {
         Switch(home);
     }
+
+    public void ShowAll()
+    {
+        foreach (VisualElement element in visualElements)
+        {
+            element.style.display = DisplayStyle.Flex;
+        }
+    }
 }

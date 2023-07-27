@@ -15,6 +15,7 @@ public class SpaceResourceData : ScriptableObject
     }
     
     public string displayName;
+    public string shortName;
     [Multiline]
     public string description;
     public Type type = Type.NORMAL;
@@ -34,53 +35,56 @@ public class SpaceResourceStorage : SerializableDictionary<SpaceResourceData, in
         storageLinks = new HashSet<SpaceResourceStorage>();
     }
 
-    public bool RequirementsMet(SpaceResourceStorage requirements)
+    public bool CostIsAffordable(SpaceResourceStorage cost)
     {
-        foreach (SpaceResourceData key in requirements.Keys) 
+        if (StorageLinked(cost))
         {
-            if (ContainsKey(key))
+            foreach (SpaceResourceData key in cost.Keys) 
             {
-                if (this[key] - requirements[key] < 0) return false;
+                if (key.type != SpaceResourceData.Type.STATIC)
+                {
+                    if (ContainsKey(key))
+                    {
+                        if (this[key] + cost[key] < 0) return false;
+                    }
+                    else
+                    {
+                        if (cost[key] < 0) return false;
+                    }
+                }
             }
-            else
-            {
-                if (requirements[key] > 0) return false;
-            }
+            return true;
         }
-        return true;
+        else
+        {
+            foreach (SpaceResourceData key in cost.Keys) 
+            {
+                if (ContainsKey(key))
+                {
+                    if (this[key] + cost[key] < 0) return false;
+                }
+                else
+                {
+                    if (cost[key] < 0) return false;
+                }
+            }
+            return true;
+        }
     }
 
-    public bool StaticStorageLinked(SpaceResourceStorage staticStorage)
+    public bool StorageLinked(SpaceResourceStorage storage)
     {
-        return storageLinks.Contains(staticStorage);
+        return storageLinks.Contains(storage);
     }
 
     private void LinkStorage(SpaceResourceStorage storage)
     {
-        storageLinks.Add(storage);
-    }
-
-    private void UnlinkStorage(SpaceResourceStorage storage)
-    {
-        storageLinks.Remove(storage);
-    }
-    
-    public void AddStorage(SpaceResourceStorage storage)
-    {
-        if (!StaticStorageLinked(storage))
+        if (!StorageLinked(storage))
         {
-            LinkStorage(storage);
+            storageLinks.Add(storage);
             foreach (SpaceResourceData key in storage.Keys) 
             {
-                if (!ContainsKey(key)) Add(key, 0);
-                this[key] += storage[key]; 
-            }
-        }
-        else
-        {
-            foreach (SpaceResourceData key in storage.Keys) 
-            {
-                if (key.type != SpaceResourceData.Type.STATIC)
+                if (key.type == SpaceResourceData.Type.STATIC)
                 {
                     if (!ContainsKey(key)) Add(key, 0);
                     this[key] += storage[key]; 
@@ -89,18 +93,31 @@ public class SpaceResourceStorage : SerializableDictionary<SpaceResourceData, in
         }
     }
 
-    public void RemoveStorage(SpaceResourceStorage storage)
+    private void UnlinkStorage(SpaceResourceStorage storage)
     {
-        if (StaticStorageLinked(storage))
+        if (StorageLinked(storage))
         {
-            UnlinkStorage(storage);
+            storageLinks.Remove(storage);
             foreach (SpaceResourceData key in storage.Keys) 
             {
                 if (key.type == SpaceResourceData.Type.STATIC)
                 {
                     if (!ContainsKey(key)) Add(key, 0);
-                    this[key] -= storage[key]; 
+                    this[key] -= storage[key];
                 }
+            }
+        }
+    }
+    
+    public void AddStorage(SpaceResourceStorage storage)
+    {
+        LinkStorage(storage);
+        foreach (SpaceResourceData key in storage.Keys) 
+        {
+            if (key.type != SpaceResourceData.Type.STATIC)
+            {
+                if (!ContainsKey(key)) Add(key, 0);
+                this[key] += storage[key]; 
             }
         }
     }
@@ -111,7 +128,7 @@ public class SpaceResourceStorage : SerializableDictionary<SpaceResourceData, in
 public class Production
 {
     public int cycle;
-    public SpaceResourceStorage requirements = new SpaceResourceStorage();
+    public SpaceResourceStorage cost = new SpaceResourceStorage();
     public SpaceResourceStorage products = new SpaceResourceStorage();
 }
 

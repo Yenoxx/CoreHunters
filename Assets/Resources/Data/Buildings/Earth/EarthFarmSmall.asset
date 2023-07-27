@@ -28,15 +28,13 @@ MonoBehaviour:
     m_values: 
   productionVariants:
   - cycle: 8
-    requirements:
-      m_keys:
-      - {fileID: 11400000, guid: c70f85f9550f2d04aa81863644c9bca7, type: 2}
-      - {fileID: 11400000, guid: add8bae3751beae4ab0cdf34eeb2bd86, type: 2}
-      m_values: 0100000001000000
+    cost:
+      m_keys: []
+      m_values: 
     products:
       m_keys:
       - {fileID: 11400000, guid: 5832c2dedf954bf45b37fc9ad4d24754, type: 2}
       m_values: 04000000
     continious: 1
-    displayName: 
+    displayName: Basic
     technology: {fileID: 0}

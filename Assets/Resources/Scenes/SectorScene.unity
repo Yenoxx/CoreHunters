@@ -1682,6 +1682,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   submenuBuildTree: {fileID: 9197481963319205126, guid: 621bd07323d1e6d43b1ef0fe2398ecc7, type: 3}
   submenuBuildingTree: {fileID: 9197481963319205126, guid: f2430369f8d61884aa7b359ee2f22c9c, type: 3}
+  submenuConstructionTree: {fileID: 9197481963319205126, guid: 37bd1bda53e0eff429182847c129a0f1, type: 3}
 --- !u!114 &2042129806
 MonoBehaviour:
   m_ObjectHideFlags: 0

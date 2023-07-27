@@ -144,6 +144,9 @@ public class Building : MonoBehaviour
     public Vector2 centerOffset { get; private set; }
     public Vector2 contextButtonOffset { get; private set; }
 
+
+    #region Unity
+
     void Awake()
     {
         collider_ = GetComponent<PolygonCollider2D>();
@@ -200,7 +203,7 @@ public class Building : MonoBehaviour
             cellPosition = GetCellPosition();
             if (!MoveToAvailablePosition())
             {
-                ProviderUmpaLumpa.sectorManager.ToggleBuild();
+                ProviderUmpaLumpa.sectorManager.NormalState();
             }
             ProviderUmpaLumpa.sectorManager.UpdateMarkupBuild(this);
         }
@@ -300,8 +303,43 @@ public class Building : MonoBehaviour
         }
     }
 
+    #endregion Unity
+
+
+    #region Gameplay mechanics
+
+    public String[] GetProductionVariantNames()
+    {
+        String[] names = new String[buildingData.productionVariants.Length];
+
+        for (int i = 0; i < buildingData.productionVariants.Length; i++)
+        {
+            // TODO: check if available
+            names[i] = buildingData.productionVariants[i].displayName;
+        }
+
+        return names;
+    }
+
+    public void SetCurrentProductionVariant(String name)
+    {
+        for (int i = 0; i < buildingData.productionVariants.Length; i++)
+        {
+            if (buildingData.productionVariants[i].displayName == name)
+            {
+                currentProductionVariant = buildingData.productionVariants[i];
+                break;
+            }
+        }
+    }
+
+    #endregion Gameplay mechanics
+
+
+    #region Basic mechanics
+
     // Automatically called when mode is changed
-    void OnModeChanged(BehaviorMode lastMode, BehaviorMode mode)
+    private void OnModeChanged(BehaviorMode lastMode, BehaviorMode mode)
     {
         switch (mode)
         {
@@ -340,7 +378,7 @@ public class Building : MonoBehaviour
     }
 
     // Automatically called when cell position is changed
-    void OnCellPositionChanged(Vector3Int lastPosition, Vector3Int position)
+    private void OnCellPositionChanged(Vector3Int lastPosition, Vector3Int position)
     {
         ProviderUmpaLumpa.sectorManager.UpdateMarkupBuild(this);
         UpdateSortingOrder();
@@ -423,6 +461,11 @@ public class Building : MonoBehaviour
             blinkTween2.Stop(TweenStopBehavior.Complete);
         }
     }
+
+    #endregion Basic mechanics
+
+
+    #region Geometry
 
     private void UpdateSortingOrder()
     {
@@ -673,4 +716,7 @@ public class Building : MonoBehaviour
     {
         return ProviderUmpaLumpa.sectorManager.GetCellWorldPosition(cellPosition);
     }
+
+    #endregion Geometry
+
 }

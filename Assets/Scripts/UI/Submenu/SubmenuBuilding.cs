@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class SubmenuBuildingSection
+public class SubmenuBuilding : Submenu
 {
-    public VisualElement wrapper { get; private set; }
     public Building building 
     { 
         get => building_; 
@@ -20,6 +19,7 @@ public class SubmenuBuildingSection
     }
     private Building building_;
     private bool buildingChanged;
+    private SectorCamera.Snapshot cameraSnapshot;
 
     private Button buttonMove;
     private Button buttonCopy;
@@ -31,6 +31,7 @@ public class SubmenuBuildingSection
     private CategoryButton buttonCategoryInfo;
 
     private VisualElement viewProduction;
+    private DropdownField dropdownTechnology;
     private VisualElement productonContent;
     private ViewResources viewResourcesProduction;
 
@@ -40,7 +41,7 @@ public class SubmenuBuildingSection
     private CategoryButton.Group categoryGroup;
     private FlexSwitcher flexSwitcher;
 
-    public SubmenuBuildingSection(VisualElement root)
+    public SubmenuBuilding(VisualElement root)
     {
         buildingChanged = true;
 
@@ -56,6 +57,7 @@ public class SubmenuBuildingSection
         buttonCategoryInfo = wrapper.Q<CategoryButton>("ButtonCategoryInfo");
 
         viewProduction = wrapper.Q<VisualElement>("ViewProduction");
+        dropdownTechnology = wrapper.Q<DropdownField>("DropdownTechnology");
         productonContent = wrapper.Q<VisualElement>("ProductionContent");
 
         viewInfo = wrapper.Q<VisualElement>("ViewInfo");
@@ -73,7 +75,7 @@ public class SubmenuBuildingSection
         UpdateContent();
     }
 
-    public void RegisterCallbacks()
+    public override void RegisterCallbacks()
     {
         buttonCopy.clicked += () =>
         {
@@ -89,12 +91,29 @@ public class SubmenuBuildingSection
         };
         buttonCategoryProduction.clicked += categoryButtonClicked;
         buttonCategoryInfo.clicked += categoryButtonClicked;
+
+        EventCallback<ChangeEvent<string>> dropdownTechnologyCallback = (ChangeEvent<string> e) =>
+        {
+            if (building != null)
+            {
+                building.SetCurrentProductionVariant(e.newValue);
+                if (viewResourcesProduction != null)
+                {
+                    viewResourcesProduction.storage = building.currentProductionVariant.products;
+                }
+            }
+        };
+        dropdownTechnology.RegisterValueChangedCallback(dropdownTechnologyCallback);
     }
     
-    public void OnShow()
+    public override void OnShow()
     {
         if (building != null)
         {
+            Vector2 position = new Vector2(building.transform.position.x, building.transform.position.y);
+            cameraSnapshot = ProviderUmpaLumpa.sectorCamera.CreateSnapshot();
+            ProviderUmpaLumpa.sectorCamera.FocusOn(position + building.centerOffset, new Vector2(0, -0.2f));
+
             building.blinking = true;
             labelName.text = building.buildingData.displayName;
 
@@ -106,16 +125,25 @@ public class SubmenuBuildingSection
             if (buildingChanged)
             {
                 viewResourcesProduction.storage = building.currentProductionVariant.products;
+
+                dropdownTechnology.choices.Clear();
+                foreach (String choice in building.GetProductionVariantNames())
+                {
+                    dropdownTechnology.choices.Add(choice);
+                }
+                dropdownTechnology.value = building.currentProductionVariant.displayName;
+                
             }
             labelInfoText.text = building.buildingData.description;
         }
     }
 
-    public void OnHide()
+    public override void OnHide()
     {
         if (building != null)
         {
             building.blinking = false;
+            ProviderUmpaLumpa.sectorCamera.LoadSnapshotZoom(cameraSnapshot);
         }
     }
 

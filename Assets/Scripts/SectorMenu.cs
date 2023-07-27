@@ -5,8 +5,9 @@ public class SectorMenu : MonoBehaviour
 {
     public VisualTreeAsset submenuBuildTree;
     public VisualTreeAsset submenuBuildingTree;
+    public VisualTreeAsset submenuConstructionTree;
 
-    public FlexSwitcher flexSwitcherScreen { get; private set; }
+    private FlexSwitcher flexSwitcherScreen;
 
     private UIDocument document;
     private VisualElement wrapperScreen;
@@ -19,10 +20,10 @@ public class SectorMenu : MonoBehaviour
     private Button buttonDevTools;
     private Button buttonMap;
 
-    private SubmenuBuildSection submenuBuildSection;
-    private SubmenuBuildingSection submenuBuildingSection;
+    private SubmenuBuild submenuBuild;
+    private SubmenuBuilding submenuBuilding;
+    private SubmenuConstruction submenuConstruction;
 
-    private SectorCamera.Snapshot cameraSnapshotSubmenuBuilding;
 
     void Awake()
     {
@@ -42,62 +43,83 @@ public class SectorMenu : MonoBehaviour
 
     void Start()
     {
-        ProviderUmpaLumpa.sectorCamera.clicked += () => 
-        {
-            HideSubmenuBuilding();
-        };
-
         flexSwitcherScreen = new FlexSwitcher(menuSector);
 
-        submenuBuildSection = new SubmenuBuildSection(submenuBuildTree.CloneTree());
-        wrapperScreen.Add(submenuBuildSection.wrapper);
-        flexSwitcherScreen.Add(submenuBuildSection.wrapper);
+        submenuBuild = new SubmenuBuild(submenuBuildTree.CloneTree());
+        wrapperScreen.Add(submenuBuild.wrapper);
+        flexSwitcherScreen.Add(submenuBuild.wrapper);
 
-        submenuBuildingSection = new SubmenuBuildingSection(submenuBuildingTree.CloneTree());
-        wrapperScreen.Add(submenuBuildingSection.wrapper);
-        flexSwitcherScreen.Add(submenuBuildingSection.wrapper);
+        submenuBuilding = new SubmenuBuilding(submenuBuildingTree.CloneTree());
+        wrapperScreen.Add(submenuBuilding.wrapper);
+        flexSwitcherScreen.Add(submenuBuilding.wrapper);
 
-        flexSwitcherScreen.Return();
+        submenuConstruction = new SubmenuConstruction(submenuConstructionTree.CloneTree());
+        wrapperScreen.Add(submenuConstruction.wrapper);
+        flexSwitcherScreen.Add(submenuConstruction.wrapper);
+
+        Return();
+
+        RegisterCallbacks();
+        submenuBuild.RegisterCallbacks();
+        submenuBuilding.RegisterCallbacks();
+    }
+
+    private void RegisterCallbacks()
+    {
+        ProviderUmpaLumpa.sectorCamera.clicked += () => 
+        {
+            if (flexSwitcherScreen.current == submenuBuilding.wrapper) Return();
+        };
+
+        flexSwitcherScreen.switchTo += (VisualElement element) =>
+        {
+            if (element == submenuBuilding.wrapper)
+            {
+                submenuBuilding.OnShow();
+            }
+        };
+
+        flexSwitcherScreen.switchFrom += (VisualElement element) =>
+        {
+            if (element == submenuBuilding.wrapper)
+            {
+                submenuBuilding.OnHide();
+            }
+        };
 
         buttonBuild.clicked += () =>
         {
-            flexSwitcherScreen.Switch(submenuBuildSection.wrapper);
-            submenuBuildSection.UpdateBBEs();
+            flexSwitcherScreen.Switch(submenuBuild.wrapper);
+            submenuBuild.UpdateBBEs();
         };
 
         buttonDevTools.clicked += () =>
         {
             // TODO: idk show dev tools then
         };
-
-        submenuBuildSection.RegisterCallbacks();
-        submenuBuildingSection.RegisterCallbacks();
     }
 
     public void ShowSubmenuBuilding(Building building)
     {
-        if (flexSwitcherScreen.current != submenuBuildingSection.wrapper)
+        if (flexSwitcherScreen.current != submenuBuilding.wrapper)
         {
-            submenuBuildingSection.building = building;
-            submenuBuildingSection.OnShow();
-
-            Vector2 position = new Vector2(building.transform.position.x, building.transform.position.y);
-            cameraSnapshotSubmenuBuilding = ProviderUmpaLumpa.sectorCamera.CreateSnapshot();
-            ProviderUmpaLumpa.sectorCamera.FocusOn(position + building.centerOffset, new Vector2(0, -0.2f));
-
-            flexSwitcherScreen.Switch(submenuBuildingSection.wrapper);
+            submenuBuilding.building = building;
+            flexSwitcherScreen.Switch(submenuBuilding.wrapper);
         }
     }
 
-    public void HideSubmenuBuilding()
+    public void ShowSubmenuConstruction()
     {
-        if (flexSwitcherScreen.current == submenuBuildingSection.wrapper)
-        {
-            submenuBuildingSection.OnHide();
+        flexSwitcherScreen.Switch(submenuConstruction.wrapper);
+    }
 
-            ProviderUmpaLumpa.sectorCamera.LoadSnapshotZoom(cameraSnapshotSubmenuBuilding);
-            
-            flexSwitcherScreen.Return();
-        }
+    public void HideUI()
+    {
+        flexSwitcherScreen.HideAll();
+    }
+
+    public void Return()
+    {
+        flexSwitcherScreen.Return();
     }
 }

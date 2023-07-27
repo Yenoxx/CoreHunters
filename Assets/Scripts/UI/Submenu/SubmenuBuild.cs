@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class SubmenuBuildSection
+public class SubmenuBuild : Submenu
 {
-    public VisualElement wrapper { get; private set; }
-
     private Button buttonClose;
 
     private CategoryButton buttonCategoryColonists;
@@ -24,7 +22,7 @@ public class SubmenuBuildSection
     private List<ButtonBuildingElement> buttonBuildingElements;
     
 
-    public SubmenuBuildSection(VisualElement root)
+    public SubmenuBuild(VisualElement root)
     {
         wrapper = root.Q<VisualElement>("SubmenuBuild");
 
@@ -50,11 +48,11 @@ public class SubmenuBuildSection
         buttonBuildingElements = new List<ButtonBuildingElement>();
     }
 
-    public void RegisterCallbacks()
+    public override void RegisterCallbacks()
     {
         buttonClose.clicked += () =>
         {
-            ProviderUmpaLumpa.sectorMenu.flexSwitcherScreen.Return();
+            ProviderUmpaLumpa.sectorMenu.Return();
         };
 
         Action categoryAction = () => 

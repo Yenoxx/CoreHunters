@@ -1,0 +1,10 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Resources/UI/Styles/StyleDefault.uss?fileID=7433441132597879392&amp;guid=01c786eff3194d54083b2d47e62bd2c5&amp;type=3#StyleDefault" />
+    <ui:VisualElement name="SubmenuConstruction" class="wrapper-submenu">
+        <ui:VisualElement name="TopArea" picking-mode="Ignore" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); max-height: 128px;">
+            <FillerAngledStripes picking-mode="Ignore" style="flex-grow: 1;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="MiddleArea" picking-mode="Ignore" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);" />
+        <ui:VisualElement name="BottomArea" picking-mode="Ignore" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); max-height: 128px;" />
+    </ui:VisualElement>
+</ui:UXML>

@@ -26,7 +26,7 @@ MonoBehaviour:
     m_values: 
   productionVariants:
   - cycle: 0
-    requirements:
+    cost:
       m_keys: []
       m_values: 
     products:
@@ -34,5 +34,5 @@ MonoBehaviour:
       - {fileID: 11400000, guid: 700cb277d43a162419c369f540a5e58e, type: 2}
       m_values: 04000000
     continious: 1
-    displayName: 
+    displayName: Basic
     technology: {fileID: 0}

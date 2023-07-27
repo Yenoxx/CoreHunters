@@ -85,6 +85,7 @@ public class SectorManager : MonoBehaviour
                 {
                     ShowMarkup();
                     CreateBuilding();
+                    ProviderUmpaLumpa.sectorMenu.HideUI();
                     break;
                 }
             }
@@ -103,6 +104,7 @@ public class SectorManager : MonoBehaviour
                     {
                         ClearMarkupBuild();
                         Destroy(currentBuilding);
+                        ProviderUmpaLumpa.sectorMenu.Return();
                     }
                     break;
                 }
@@ -146,13 +148,11 @@ public class SectorManager : MonoBehaviour
     {
         this.buildingData = buildingData;
         State = GameState.BUILD;
-        ProviderUmpaLumpa.sectorMenu.flexSwitcherScreen.Return();
     }
 
-    public void ToggleBuild()
+    public void NormalState()
     {
-        if (State == GameState.BUILD) State = GameState.NORMAL;
-        else State = GameState.BUILD;
+        State = GameState.NORMAL;
     }
     
     public void ShowMarkup()

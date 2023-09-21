@@ -85,7 +85,7 @@ public class SectorManager : MonoBehaviour
                 {
                     ShowMarkup();
                     CreateBuilding();
-                    ProviderUmpaLumpa.sectorMenu.HideUI();
+                    ProviderUmpaLumpa.sectorMenu.ShowSubmenuConstruction();
                     break;
                 }
             }

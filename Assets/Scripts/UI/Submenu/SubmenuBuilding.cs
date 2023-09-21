@@ -99,7 +99,8 @@ public class SubmenuBuilding : Submenu
                 building.SetCurrentProductionVariant(e.newValue);
                 if (viewResourcesProduction != null)
                 {
-                    viewResourcesProduction.storage = building.currentProductionVariant.products;
+                    building.currentProductionVariant.UpdateTotal();
+                    viewResourcesProduction.storage = building.currentProductionVariant.total;
                 }
             }
         };
@@ -119,12 +120,14 @@ public class SubmenuBuilding : Submenu
 
             if (viewResourcesProduction == null)
             {
-                viewResourcesProduction = new ViewResources(building.currentProductionVariant.products);
+                building.currentProductionVariant.UpdateTotal();
+                viewResourcesProduction = new ViewResources(building.currentProductionVariant.total);
                 productonContent.Add(viewResourcesProduction);
             }
             if (buildingChanged)
             {
-                viewResourcesProduction.storage = building.currentProductionVariant.products;
+                building.currentProductionVariant.UpdateTotal();
+                viewResourcesProduction.storage = building.currentProductionVariant.total;
 
                 dropdownTechnology.choices.Clear();
                 foreach (String choice in building.GetProductionVariantNames())

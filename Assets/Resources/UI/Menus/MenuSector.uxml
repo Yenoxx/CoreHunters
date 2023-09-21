@@ -1,23 +1,24 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-    <Style src="project://database/Assets/Resources/UI/Styles/StyleDefault.uss?fileID=7433441132597879392&amp;guid=01c786eff3194d54083b2d47e62bd2c5&amp;type=3#StyleDefault" />
-    <ui:VisualElement name="WrapperScreen" picking-mode="Ignore" class="wrapper-screen" style="padding-left: 24px; padding-right: 24px; padding-top: 24px; padding-bottom: 24px; flex-grow: 1; flex-shrink: 0;">
-        <ui:VisualElement name="MenuSector" picking-mode="Ignore" style="flex-grow: 1; flex-shrink: 0;">
-            <ui:VisualElement name="DockTop" picking-mode="Ignore" style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; flex-direction: row; flex-wrap: wrap;">
-                <ui:VisualElement name="WrapperCurrency" picking-mode="Ignore" style="flex-wrap: wrap; flex-grow: 1;">
-                    <ui:VisualElement name="PanelCurrency" class="panel-dimmed" style="flex-grow: 1;" />
+    <ui:VisualElement name="SafeArea" picking-mode="Ignore" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);">
+        <ui:VisualElement name="WrapperScreen" picking-mode="Ignore" class="wrapper-screen" style="padding-left: 24px; padding-right: 24px; padding-top: 24px; padding-bottom: 24px; flex-grow: 1; flex-shrink: 0;">
+            <ui:VisualElement name="MenuSector" picking-mode="Ignore" style="flex-grow: 1; flex-shrink: 0;">
+                <ui:VisualElement name="DockTop" picking-mode="Ignore" style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; flex-direction: row; flex-wrap: wrap;">
+                    <ui:VisualElement name="WrapperCurrency" picking-mode="Ignore" style="flex-wrap: wrap; flex-grow: 1;">
+                        <ui:VisualElement name="PanelCurrency" class="panel-dimmed" style="flex-grow: 1;" />
+                    </ui:VisualElement>
+                    <IconButton focusable="false" name="ButtonQuickMenu" icon-string="Menu" />
                 </ui:VisualElement>
-                <IconButton focusable="false" name="ButtonQuickMenu" icon-string="Menu" />
-            </ui:VisualElement>
-            <ui:VisualElement name="AreaMain" picking-mode="Ignore" style="flex-grow: 1;" />
-            <ui:VisualElement name="DockBottom" picking-mode="Ignore" style="flex-wrap: wrap; flex-direction: row; justify-content: space-between;">
-                <ui:VisualElement name="ButtonGroupLeft" picking-mode="Ignore" style="flex-wrap: wrap; flex-direction: row;">
-                    <IconButton name="ButtonBuild" icon-string="Build" />
-                    <IconButton focusable="false" name="ButtonResearch" icon-string="Research" />
-                    <IconButton focusable="false" name="ButtonProduction" icon-string="Production" />
-                    <ui:Button name="ButtonDevTools" focusable="false" text="DEV\nTOOLS" class="button-icon" />
-                </ui:VisualElement>
-                <ui:VisualElement name="ButtonGroupRight" picking-mode="Ignore" style="flex-wrap: wrap; flex-direction: row;">
-                    <IconButton focusable="false" name="ButtonMap" icon-string="Map" />
+                <ui:VisualElement name="AreaMain" picking-mode="Ignore" style="flex-grow: 1;" />
+                <ui:VisualElement name="DockBottom" picking-mode="Ignore" style="flex-wrap: wrap; flex-direction: row; justify-content: space-between;">
+                    <ui:VisualElement name="ButtonGroupLeft" picking-mode="Ignore" style="flex-wrap: wrap; flex-direction: row;">
+                        <IconButton name="ButtonBuild" icon-string="Build" />
+                        <IconButton focusable="false" name="ButtonResearch" icon-string="Research" />
+                        <IconButton focusable="false" name="ButtonProduction" icon-string="Production" />
+                        <ui:Button name="ButtonDevTools" focusable="false" text="DEV\nTOOLS" class="button-icon" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="ButtonGroupRight" picking-mode="Ignore" style="flex-wrap: wrap; flex-direction: row;">
+                        <IconButton focusable="false" name="ButtonMap" icon-string="Map" />
+                    </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>

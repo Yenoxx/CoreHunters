@@ -10,6 +10,7 @@ public class SectorMenu : MonoBehaviour
     private FlexSwitcher flexSwitcherScreen;
 
     private UIDocument document;
+    private VisualElement safeArea;
     private VisualElement wrapperScreen;
 
     private VisualElement menuSector;
@@ -30,7 +31,15 @@ public class SectorMenu : MonoBehaviour
         ProviderUmpaLumpa.sectorMenu = this;
 
         document = GetComponent<UIDocument>();
+        safeArea = document.rootVisualElement.Q<VisualElement>("SafeArea");
         wrapperScreen = document.rootVisualElement.Q<VisualElement>("WrapperScreen");
+
+        // TODO: i don't know what to do with this
+        // var safeAreaRectOffset = document.rootVisualElement.panel.GetSafeArea();
+        // safeArea.style.paddingLeft = safeAreaRectOffset.Left;
+        // safeArea.style.paddingRight = safeAreaRectOffset.Right;
+        // safeArea.style.paddingTop = safeAreaRectOffset.Top;
+        // safeArea.style.paddingBottom = safeAreaRectOffset.Bottom;
 
         menuSector = wrapperScreen.Q<VisualElement>("MenuSector");
 

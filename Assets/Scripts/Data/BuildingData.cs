@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 
-[CreateAssetMenu(fileName ="New Building", menuName ="Data/Building"), Icon("Assets/Resources/Sprites/Icons/IconBuild.png")]
+[CreateAssetMenu(fileName ="New Building", menuName ="Data/Building")]
 public class BuildingData : ScriptableObject
 {
     public string displayName;

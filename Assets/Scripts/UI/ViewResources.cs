@@ -96,7 +96,7 @@ public class ViewResources : VisualElement
             labelName.text = "[no production]";
             
             Label labelQuantity = viewResource.Q<Label>("LabelQuantity");
-            labelQuantity.text = ""; // TODO: format!!!
+            labelQuantity.text = "";
 
             Add(viewResource);
         }

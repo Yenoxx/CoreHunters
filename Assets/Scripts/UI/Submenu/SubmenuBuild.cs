@@ -15,10 +15,6 @@ public class SubmenuBuild : Submenu
 
     private VisualElement scrollContent;
 
-    private Button buttonClear;
-    private Button buttonSearch;
-    private TextField textFieldSearch;
-
     private List<ButtonBuildingElement> buttonBuildingElements;
     
 
@@ -41,10 +37,6 @@ public class SubmenuBuild : Submenu
 
         scrollContent = wrapper.Q<VisualElement>("ScrollContent");
 
-        buttonClear = wrapper.Q<Button>("ButtonClear");
-        buttonSearch = wrapper.Q<Button>("ButtonSearch");
-        textFieldSearch = wrapper.Q<TextField>("TextFieldSearch");
-
         buttonBuildingElements = new List<ButtonBuildingElement>();
     }
 
@@ -63,22 +55,6 @@ public class SubmenuBuild : Submenu
         buttonCategoryProduction.clicked += categoryAction;
         buttonCategoryOther.clicked += categoryAction;
         buttonCategoryDecoration.clicked += categoryAction;
-
-        buttonClear.clicked += () =>
-        {
-            textFieldSearch.value = "";
-            ApplyFilter();
-        };
-        buttonSearch.clicked += () =>
-        {
-            ApplyFilter();
-        };
-
-        EventCallback<KeyDownEvent> tfSearchKeydownCallback = (KeyDownEvent ev) =>
-        {
-            if (ev.keyCode == KeyCode.Return) ApplyFilter();
-        };
-        textFieldSearch.RegisterCallback(tfSearchKeydownCallback, TrickleDown.TrickleDown);
     }
 
     public void UpdateBBEs()
@@ -108,10 +84,6 @@ public class SubmenuBuild : Submenu
                     || 
                     buildGroup.currentCategoryName == CategoryButton.CATEGORY_ALL
                 )
-                &&
-                HelperUmpaLumpa.LevenshteinDistance.MatchWords(
-                    bbe.buildingData.displayName.ToLower().Normalize(), 
-                    textFieldSearch.value.ToLower().Normalize()) >= 0.5f
             )
             {
                 bbe.style.display = DisplayStyle.Flex;

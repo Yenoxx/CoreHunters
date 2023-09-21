@@ -1,5 +1,4 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-    <Style src="project://database/Assets/Resources/UI/Styles/StyleDefault.uss?fileID=7433441132597879392&amp;guid=01c786eff3194d54083b2d47e62bd2c5&amp;type=3#StyleDefault" />
     <ui:VisualElement name="WrapperScreen" picking-mode="Ignore" class="wrapper-screen" style="align-items: flex-start;">
         <ui:VisualElement name="ContextButtons" picking-mode="Ignore" class="panel-dimmed-half" style="flex-direction: row; flex-shrink: 1; flex-grow: 0; padding-left: 4px; padding-right: 4px; padding-top: 4px; padding-bottom: 4px; width: auto; flex-wrap: wrap;">
             <IconButton focusable="false" icon-string="Ok" name="ButtonOK" />

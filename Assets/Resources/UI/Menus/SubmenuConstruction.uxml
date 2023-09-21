@@ -1,8 +1,11 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-    <Style src="project://database/Assets/Resources/UI/Styles/StyleDefault.uss?fileID=7433441132597879392&amp;guid=01c786eff3194d54083b2d47e62bd2c5&amp;type=3#StyleDefault" />
-    <ui:VisualElement name="SubmenuConstruction" class="wrapper-submenu">
-        <ui:VisualElement name="TopArea" picking-mode="Ignore" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); max-height: 128px;">
-            <FillerAngledStripes picking-mode="Ignore" style="flex-grow: 1;" />
+    <ui:VisualElement name="SubmenuConstruction" picking-mode="Ignore" class="wrapper-submenu">
+        <ui:VisualElement name="TopArea" picking-mode="Ignore" style="flex-grow: 1; max-height: 128px;">
+            <FillerAngledStripes picking-mode="Ignore" stripe-color="#B9A53BFF" param-k="2" class="panel-side" style="overflow: hidden; background-color: rgb(43, 43, 43); max-height: 32px; min-height: 32px; border-top-left-radius: 16px; border-top-right-radius: 16px; border-bottom-width: 0; border-bottom-left-radius: 0; border-bottom-right-radius: 0; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
+            <ui:VisualElement picking-mode="Ignore" class="panel-dimmed-half panel-dimmed panel-side" style="flex-grow: 1; border-top-left-radius: 0; border-bottom-left-radius: 0; border-top-right-radius: 0; border-bottom-right-radius: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; background-color: rgb(27, 27, 27); border-top-width: 0; border-bottom-width: 0;">
+                <ui:Label tabindex="-1" text="[CONSTRUCTION]" display-tooltip-when-elided="true" picking-mode="Ignore" class="label-title label-normal" style="flex-grow: 1; font-size: 24px;" />
+            </ui:VisualElement>
+            <FillerAngledStripes picking-mode="Ignore" stripe-color="#B9A53BFF" param-k="2" class="panel-side" style="overflow: hidden; background-color: rgb(43, 43, 43); max-height: 32px; min-height: 32px; border-bottom-left-radius: 16px; border-bottom-right-radius: 16px; border-top-left-radius: 0; border-top-right-radius: 0; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; border-top-width: 0;" />
         </ui:VisualElement>
         <ui:VisualElement name="MiddleArea" picking-mode="Ignore" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);" />
         <ui:VisualElement name="BottomArea" picking-mode="Ignore" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); max-height: 128px;" />

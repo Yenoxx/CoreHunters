@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[CreateAssetMenu(fileName ="New SpaceResource", menuName ="Data/SpaceResource"), Icon("Assets/Resources/Sprites/Icons/IconProduction.png")]
+[CreateAssetMenu(fileName ="New SpaceResource", menuName ="Data/SpaceResource")]
 public class SpaceResourceData : ScriptableObject
 {
     public enum Type
@@ -33,6 +33,12 @@ public class SpaceResourceStorage : SerializableDictionary<SpaceResourceData, in
     public SpaceResourceStorage() : base()
     {
         storageLinks = new HashSet<SpaceResourceStorage>();
+    }
+
+    public new void Clear()
+    {
+        base.Clear();
+        storageLinks.Clear();
     }
 
     public bool CostIsAffordable(SpaceResourceStorage cost)
@@ -130,6 +136,15 @@ public class Production
     public int cycle;
     public SpaceResourceStorage cost = new SpaceResourceStorage();
     public SpaceResourceStorage products = new SpaceResourceStorage();
+    [NonSerialized]
+    public SpaceResourceStorage total = new SpaceResourceStorage();
+
+    public void UpdateTotal()
+    {
+        total.Clear();
+        total.AddStorage(cost);
+        total.AddStorage(products);
+    }
 }
 
 
